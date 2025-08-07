@@ -1,0 +1,35 @@
+{
+  "name": "welcome-message-ts",
+  "version": "1.0.0",
+  "description": "TypeScript version of the welcome message system",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "watch": "nodemon --exec ts-node src/index.ts",
+    "clean": "rm -rf dist",
+    "rebuild": "npm run clean && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@linear/sdk": "^40.0.0",
+    "@types/node": "^20.11.24",
+    "chalk": "^4.1.2",
+    "dayjs": "^1.11.13",
+    "dayjs-business-days2": "^1.3.0",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.4",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2"
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
+  "bin": {
+    "welcome-message": "./bin/welcome-message.js"
+  }
+}
