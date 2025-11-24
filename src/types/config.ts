@@ -43,10 +43,12 @@ export interface GitHubConfig {
   maxPRs: number;
 }
 
+type LinearTeam = 'Backup Care' | 'Concierge' | `Platform` | `Security` | `Dev Ops` | 'AI';
+
 // Linear configuration
 export interface LinearConfig {
   apiKey?: string;
-  teamNames: string[];
+  teamNames: LinearTeam[];
   daysStalled: number;
   baseUrl: string;
 }
@@ -81,6 +83,8 @@ export interface DisplayConfig {
   logLevel: LogLevel;
 }
 
+type Module = 'system' | 'greeting' | 'weather' | 'github' | 'linearStalled';
+
 // Main configuration interface
 export interface WelcomeConfig {
   user: UserConfig;
@@ -91,7 +95,7 @@ export interface WelcomeConfig {
   cache: CacheConfig;
   performance: PerformanceConfig;
   display: DisplayConfig;
-  enabledModules: string[];
+  enabledModules: Module[];
   dataDir: string;
   postWelcomeCommand?: string;
 }
@@ -121,7 +125,7 @@ export const defaultConfig: WelcomeConfig = {
   },
   linear: {
     apiKey: process.env.LINEAR_API_KEY,
-    teamNames: ['Application', 'Security', 'Dev Ops'],
+    teamNames: ['AI'],
     daysStalled: 3,
     baseUrl: 'https://linear.app/'
   },

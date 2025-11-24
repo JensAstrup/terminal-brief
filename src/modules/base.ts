@@ -103,16 +103,16 @@ export async function setupModules(config: WelcomeConfig): Promise<void> {
 }
 
 /**
- * Display welcome message from all enabled modules
+ * Display brief from all enabled modules
  */
-export async function displayWelcome(config: WelcomeConfig): Promise<string> {
+export async function displayBrief(config: WelcomeConfig): Promise<string> {
   const enabledModules = moduleRegistry.getEnabledModules(config);
   const output: string[] = [];
   
   // Start with a blank line for spacing
   output.push('');
   
-  startTimer('display_welcome');
+  startTimer('display_brief');
   
   // Run each module
   for (const module of enabledModules) {
@@ -137,8 +137,8 @@ export async function displayWelcome(config: WelcomeConfig): Promise<string> {
   // End with a blank line for spacing
   output.push('');
   
-  const totalTime = endTimer('display_welcome');
-  logger.debug(`Total welcome display time: ${totalTime}s`);
+  const totalTime = endTimer('display_brief');
+  logger.debug(`Total brief display time: ${totalTime}s`);
   
   return output.join('\n');
 }

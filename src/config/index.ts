@@ -198,7 +198,7 @@ export async function migrateFromZsh(): Promise<WelcomeConfig | null> {
           .filter(l => l.length > 0); // Remove empty strings
         
         if (modules.length > 0) {
-          config.enabledModules = modules;
+          config.enabledModules = modules as ('system' | 'greeting' | 'weather' | 'github' | 'linearStalled')[];
         }
       }
     }

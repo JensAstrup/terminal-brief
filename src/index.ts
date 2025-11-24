@@ -1,14 +1,15 @@
 /**
- * Main entry point for the welcome message system
+ * Main entry point for the terminal-brief system
  */
 import { loadConfig } from './config';
-import { displayWelcome, moduleRegistry, setupModules } from './modules/base';
+import { displayBrief, moduleRegistry, setupModules } from './modules/base';
 import { logger } from './utils/logger';
 import { ensureCacheDir } from './utils/cache';
 import { LogLevel } from './types/config';
+import { runConfigCommand } from './commands/config';
 
 /**
- * Initialize the welcome message system
+ * Initialize the terminal-brief system
  */
 async function init() {
   try {
@@ -34,10 +35,10 @@ async function init() {
     await setupModules(config);
     
     // Display welcome message
-    const welcomeMessage = await displayWelcome(config);
-    logger.debug(`Welcome message length: ${welcomeMessage.length}`);
-    logger.debug(`Welcome message content: "${welcomeMessage}"`);
-    console.log(welcomeMessage);
+    const brief = await displayBrief(config);
+    logger.debug(`Welcome message length: ${brief.length}`);
+    logger.debug(`Welcome message content: "${brief}"`);
+    console.log(brief);
     
     // Execute post-welcome command if configured
     if (config.postWelcomeCommand) {
@@ -49,12 +50,31 @@ async function init() {
   }
 }
 
+/**
+ * Main entry point - handles command-line arguments
+ */
+async function main() {
+  // Parse command-line arguments
+  const args = process.argv.slice(2);
+  const command = args[0];
+  
+  // Handle commands
+  if (command === 'config') {
+    await runConfigCommand();
+    return;
+  }
+  
+  // Default: run the welcome message system
+  await init();
+}
+
 // Run the program if this file is executed directly
 if (require.main === module) {
+  main();
+} else {
+  // When imported as a module, run init by default
   init();
 }
 
-init();
-
 // Export for use as a module
-export { init };
+export { init, main };
